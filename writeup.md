@@ -1,3 +1,4 @@
+
 # **Finding Lane Lines on the Road** 
 
 ## Writeup Template
@@ -57,11 +58,11 @@ My pipeline consisted of 5 steps.
  ![hough][hough]
  
  The following settings were chosen for the Hough transform:
-    - **rho = 2**
-    - **theta = pi/180**
-    - **threshold = 15** specifies the minimum number of votes (intersections in a given grid cell) a candidate line needs to have to make it into the output.
-    - **min_line_length = 40** is the minimum length of a line (in pixels) that will be accepted in the output
-    - **max_line_gap = 20** is the maximum distance (again, in pixels) between segments that will allowed to be connected into a single line
+    - **rho = 2** distance resolution in pixels of the Hough grid
+    - **theta = pi/180** angular resolution in radians of the Hough grid
+    - **threshold = 30** specifies the minimum number of votes (intersections in a given grid cell) a candidate line needs to have to make it into the output.
+    - **min_line_length = 100** is the minimum length of a line (in pixels) that will be accepted in the output
+    - **max_line_gap = 160** is the maximum distance (again, in pixels) between segments that will allowed to be connected into a single line
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by using a simple linear least squares method. Using the following equation this yields the parameters ($m$ and $b$) for the straight lines $y = mx + b$ 
 
@@ -80,13 +81,18 @@ The following image shows the final result:
 ### 2. Identify potential shortcomings with your current pipeline
 
 
-One potential shortcoming would be what would happen when light conditions change. This will lead to wrong threshold settings.
+One potential shortcoming would be what happens when light conditions change. This will lead to wrong threshold settings.
 
 Another shortcoming could be curvy roads or different camera angles. This would lead to wrong region of interest selection.
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to normalize the images to avoid wrong parameters.
+A possible improvement would be to use colour maps from the Open CV api which detects a change in colour within the region_of_interest and performs depending on the colour.
 
-Another potential improvement could be to adjust the region of interest.
+Another potential improvement could be to adjust the region of interest for curvy roads. And also to use polynomials of higher order in the draw_lines function. This would result in bending output lines similar to the lane lines in curves.
+
+
+```python
+
+```
